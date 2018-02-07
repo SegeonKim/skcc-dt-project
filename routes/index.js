@@ -20,6 +20,18 @@ router.post('/recommand', function(req, res) {
     });
 });
 
+router.get('/get/detail/phone', function(req, res) {
+    feature.get_detail_phone(req, function(result) {
+        res.json(result);
+    });
+});
+
+router.get('/get/detail/plan', function(req, res) {
+    feature.get_detail_plan(req, function(result) {
+        res.json(result);
+    });
+});
+
 router.get('/user/getall', function(req, res) {
     feature.user.get_all(req, function(result) {
         res.json(result);

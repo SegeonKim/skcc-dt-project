@@ -9,6 +9,12 @@ var feature = {};
 feature.recommand = function(req, callback) {
     var res = {};
     var calc_age = function(max, min) {
+        if (!max) {
+            return min;
+        } else if (!min) {
+            return max;
+        }
+
         max = parseInt(max, 10);
         min = parseInt(min, 10);
         var avg = parseInt(((max + min) / 2) / 10, 10);
@@ -67,6 +73,46 @@ feature.user.remove = function(req, callback) {
         if (err) {
             console.log('[Err] Remove user DB : ', err);
             res.result = false;
+        }
+        callback(res);
+    });
+};
+
+feature.get_detail_phone = function(req, callback) {
+    var phone = req.query.name;
+    var res = {};
+
+    phone_db.findOne({
+        name: phone
+    }, function(err, data) {
+        if (err || !data) {
+            if (err) {
+                console.log('[Err] find get phone detail : ', err);
+            }
+            res.result = false;
+        } else {
+            res.result = true;
+            res.data = data;
+        }
+        callback(res);
+    });
+};
+
+feature.get_detail_plan = function(req, callback) {
+    var plan = req.query.name;
+    var res = {};
+
+    plan_db.findOne({
+        name: plan
+    }, function(err, data) {
+        if (err || !data) {
+            if (err) {
+                console.log('[Err] find get plan detail : ', err);
+            }
+            res.result = false;
+        } else {
+            res.result = true;
+            res.data = data;
         }
         callback(res);
     });
