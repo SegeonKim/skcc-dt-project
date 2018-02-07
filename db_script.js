@@ -7,6 +7,7 @@ mongoose.connect('mongodb://segeon:segeon@localhost:27017/dt', function(err) {
         console.error('mongodb connection error', err);
     }
     console.log('mongodb connected');
+    script();
 });
 
 var phone_db = require('./routes/dbs/phone.js');
@@ -219,35 +220,36 @@ var plan_data = [
 
 
 
+var script = function() {
+    async.map(phone_data, function(data, next) {
+        var new_data = {};
+        for (var i in data) {
+            new_data[i] = data[i];
+        }
+        var new_db = new phone_db(new_data);
+        new_db.save();
+        next();
+    }, function(err) {
+        if (err) {
+            console.log('Fail to add phone data', err);
+        } else {
+            console.log('Complete!!');
+        }
+    });
 
-async.map(phone_data, function(data, next) {
-    var new_data = {};
-    for (var i in data) {
-        new_data[i] = data[i];
-    }
-    var new_db = new phone_db(new_data);
-    new_db.save();
-    next();
-}, function(err) {
-    if (err) {
-        console.log('Fail to add phone data', err);
-    } else {
-        console.log('Complete!!');
-    }
-});
-
-async.map(plan_data, function(data, next) {
-    var new_data = {};
-    for (var i in data) {
-        new_data[i] = data[i];
-    }
-    var new_db = new plan_db(new_data);
-    new_db.save();
-    next();
-}, function(err) {
-    if (err) {
-        console.log('Fail to add phone data', err);
-    } else {
-        console.log('Complete!!');
-    }
-});
+    async.map(plan_data, function(data, next) {
+        var new_data = {};
+        for (var i in data) {
+            new_data[i] = data[i];
+        }
+        var new_db = new plan_db(new_data);
+        new_db.save();
+        next();
+    }, function(err) {
+        if (err) {
+            console.log('Fail to add phone data', err);
+        } else {
+            console.log('Complete!!');
+        }
+    });
+};

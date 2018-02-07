@@ -7,6 +7,7 @@ mongoose.connect('mongodb://segeon:segeon@localhost:27017/dt', function(err) {
         console.error('mongodb connection error', err);
     }
     console.log('mongodb connected');
+    script();
 });
 
 var user_db = require('./routes/dbs/user.js');
@@ -46,18 +47,20 @@ var user_data = [
     }
 ];
 
-async.map(user_data, function(data, next) {
-    var new_data = {};
-    for (var i in data) {
-        new_data[i] = data[i];
-    }
-    var new_db = new user_db(new_data);
-    new_db.save();
-    next();
-}, function(err) {
-    if (err) {
-        console.log('Fail to add phone data', err);
-    } else {
-        console.log('Complete!!');
-    }
-});
+var script = function() {
+    async.map(user_data, function(data, next) {
+        var new_data = {};
+        for (var i in data) {
+            new_data[i] = data[i];
+        }
+        var new_db = new user_db(new_data);
+        new_db.save();
+        next();
+    }, function(err) {
+        if (err) {
+            console.log('Fail to add phone data', err);
+        } else {
+            console.log('Complete!!');
+        }
+    });
+};
