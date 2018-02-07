@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var async = require('async');
 var db = mongoose.connection;
 
-mongoose.connect('mongodb://segeon:segeon@localhost:27017', function(err) {
+mongoose.connect('mongodb://segeon:segeon@localhost:27017/dt', function(err) {
     if (err) {
         console.error('mongodb connection error', err);
     }
