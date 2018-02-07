@@ -19,7 +19,134 @@ var phone_data = [
         storage: ['64G', '64G', '256G', '256G'],
         color: ['Space Gray', 'Silver', 'Space Gray', 'Silver'],
         price: ['1360700', '1360700', '1557600', '1557600']
-    }
+    },
+{
+
+name: 'iPhone 8',
+
+company: 'Apple',
+
+storage: ['64G', '64G', '64G', '256G', '256G', '256G'],
+
+color: ['Space Gray', 'Silver', 'Gold', 'Space Gray', 'Silver', 'Gold'],
+
+price: ['946000', '946000', '946000', '1142900', '1142900', '1142900']
+
+},
+
+
+
+{
+
+name: 'Galaxy S8',
+
+company: 'Samsung',
+
+storage: ['64G', '64G', '64G', '64G', '64G'],
+
+color: ['Midnight Black', 'Orchid Gray', 'Arctic Silver', 'Coral Blue', 'Burgundy Red'],
+
+price: ['935000', '935000', '935000', '935000', '935000']
+
+},
+
+
+
+{
+
+name: 'Galaxy A7',
+
+company: 'Samsung',
+
+storage: ['32G', '32G', '32G'],
+
+color: ['Black', 'Gold', 'Pink'],
+
+price: ['499400', '499400', '499400']
+
+},
+
+
+
+{
+
+name: 'X4+',
+
+company: 'LG',
+
+storage: ['32G', '32G'],
+
+color: ['Moroccan Blue', 'Lavender Violet'],
+
+price: ['349800', '349800', '349800']
+
+},
+
+
+
+{
+
+name: 'Galaxy A8',
+
+company: 'Samsung',
+
+storage: ['32G', '32G', '32G'],
+
+color: ['Black', 'Gold', 'Blue'],
+
+price: ['599500', '599500', '599500']
+
+},
+
+
+
+
+
+{
+
+name: 'V30',
+
+company: 'LG',
+
+storage: ['64G', '64G', '64G', '64G', '64G'],
+
+color: ['Aurora Black', 'Moroccan Blue', 'Violet', 'Raspberry Rose', 'Cloud Silver'],
+
+price: ['949300', '949300', '949300', '949300', '949300']
+
+},
+
+
+
+{
+
+name: 'XPERIA XZ1',
+
+company: 'SONY',
+
+storage: ['64G', '64G', '64G', '64G'],
+
+color: ['Black', 'Moonlight Blue', 'Warm Silver', 'Venus Pink'],
+
+price: ['748000', '748000', '748000', '748000']
+
+},
+
+
+
+{
+
+name: 'Q6',
+
+company: 'LG',
+
+storage: ['32G', '32G', '32G'],
+
+color: ['Astro Black', 'Ice Platinum', 'Mystic White'],
+
+price: ['419100', '419100', '419100']
+
+}
 ];
 var plan_data = [
     {
