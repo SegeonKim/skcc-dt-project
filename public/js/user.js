@@ -33,7 +33,7 @@ var make_user_table = function(data, callback) {
         var plan = data[i].plan;
         var phone = data[i].phone;
         var today = new Date();
-        if (today.getFullYear() == data[i].date.getFullYear() && today.getMonth() == data[i].date.getMonth() && today.getDate() == data[i].date.getDate()) {
+        if (today.getFullYear() == data[i].getFullYear() && today.getMonth() == data[i].date.getMonth() && today.getDate() == data[i].date.getDate()) {
             count++;
         }
 
