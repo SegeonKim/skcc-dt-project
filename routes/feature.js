@@ -2,11 +2,29 @@ var user_db = require('./dbs/user.js');
 var phone_db = require('./dbs/phone.js');
 var plan_db = require('./dbs/plan.js');
 var async = require('async');
+var recommand_data = require('./recommand_data.js');
 
 var feature = {};
 
 feature.recommand = function(req, callback) {
-    callback({result: true});
+    var calc_age = function(max, min) {
+        max = parseInt(max, 10);
+        min = parseInt(min, 10);
+        var avg = parseInt(((max + min) / 2) / 10, 10);
+        return avg * 10;
+    };
+    var data = req.body;
+    var age = calc_age(data.images[0].faces[0].age.max, data.images[0].faces[0].age.min);
+    var sex = data.images[0].faces[0].gender.gender.toLowerCase();
+
+    var res = {
+        result: true,
+        data: {
+            phone: recommand_data.phone[sex][age],
+            plan: recommand_data.plan[sex][age]
+        }
+    }
+    callback(res);
 };
 
 feature.user = {};

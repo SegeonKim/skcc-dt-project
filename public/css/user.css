@@ -175,3 +175,7 @@ td {
     border-right: 1px solid;
     border-color: #d2d6de;
 }
+
+.checkbox_td {
+    cursor: pointer;
+}

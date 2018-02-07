@@ -33,13 +33,14 @@ var make_user_table = function(data, callback) {
         var plan = data[i].plan;
         var phone = data[i].phone;
         var today = new Date();
-        if (today.getFullYear() == data[i].getFullYear() && today.getMonth() == data[i].date.getMonth() && today.getDate() == data[i].date.getDate()) {
+        var data_date = new Date(data[i].date);
+        if (today.getFullYear() == data_date.getFullYear() && today.getMonth() == data_date.getMonth() && today.getDate() == data_date.getDate()) {
             count++;
         }
 
         var template = [
             '<tr user-code="' + phone_number + '">',
-                '<td>' + '<input class="user_checkbox" type="checkbox" />' + '</td>',
+                '<td class="checkbox_td">' + '<input class="user_checkbox" type="checkbox" />' + '</td>',
                 '<td>' + name + '</td>',
                 '<td>' + phone_number + '</td>',
                 '<td>' + plan + '</td>',
@@ -97,7 +98,7 @@ $('.user_management').on('click', function() {
 $('#checkall').on('click', function(e) {
     var checked = $(this).is(':checked');
 
-    if (checked) {
+    if (!checked) {
         $('.user_checkbox').prop('checked', false);
     } else {
         $('.user_checkbox').prop('checked', true);
@@ -105,12 +106,15 @@ $('#checkall').on('click', function(e) {
 });
 
 $('#user_table').on('click', '.user_checkbox', function(e) {
-
+    var checked = $(this).is(':checked');
+    if (!checked) {
+        $('#checkall').prop('checked', false);
+    }
 });
 
 $('#user_table').on('click', '.show_detail', function(e) {
     $('#loading_bg').show();
-    var user_code = $(this).parent().attr('user-code');
+    var user_code = $(this).parent().parent().attr('user-code');
     var user_data = user_key_list[user_code];
 
     make_user_detail_modal(user_data, function(result) {
@@ -121,6 +125,10 @@ $('#user_table').on('click', '.show_detail', function(e) {
             alert.show('고객 상세 정보를 가져오는데 실패하였습니다.');
         }
     });
+});
+
+$('#user_table').on('click', '.checkbox_td', function(e) {
+    $(this).children().click();
 });
 
 var confirmation_remove_modal = $('#confirmation_remove_modal');

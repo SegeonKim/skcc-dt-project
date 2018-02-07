@@ -117,7 +117,7 @@
                 <table id="user_table" class="table table-hover table-responsive table-striped">
                   <thead>
                     <tr class="table_head arrive_item_head">
-                      <th><input id="checkall" type="checkbox" /></th>
+                      <th class="checkbox_td"><input id="checkall" type="checkbox" /></th>
                       <th>고객 이름</th>
                       <th>휴대폰 번호</th>
                       <th>요금제</th>
@@ -156,69 +156,70 @@
             <div class="row">
                 <div class="col-md-4 form-group border_right">
                     <label class="col-md-3 control-label">이름</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="name" class="form-control" /></div>
                 </div>
                 <div class="col-md-4 form-group border_right">
                     <label class="col-md-3 control-label">나이</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="age" class="form-control" /></div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="col-md-3 control-label">성별</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="sex" class="form-control" /></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 form-group">
                     <label class="col-md-1 control-label">주소</label>
-                    <div class="col-md-11"><input type="text" class="form-control" /></div>
+                    <div class="col-md-11"><input type="text" id="adress" class="form-control" /></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 form-group border_right">
                     <label class="col-md-3 control-label">은행</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="bank" class="form-control" /></div>
                 </div>
                 <div class="col-md-8 form-group">
                     <label class="col-md-2 control-label">계좌 번호</label>
-                    <div class="col-md-10"><input type="text" class="form-control" /></div>
+                    <div class="col-md-10"><input type="text" id="account" class="form-control" /></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group border_right">
                     <label class="col-md-3 control-label">전화번호</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="phone_number" class="form-control" /></div>
                 </div>
                 <div class="col-md-6 form-group">
                     <label class="col-md-3 control-label">요금제</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="plan" class="form-control" /></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4 form-group border_right">
                     <label class="col-md-4 control-label">남은 할부금</label>
-                    <div class="col-md-8"><input type="text" class="form-control" /></div>
+                    <div class="col-md-8"><input type="text" id="remain" class="form-control" /></div>
                 </div>
                 <div class="col-md-4 form-group border_right">
                     <label class="col-md-4 control-label">남은 할부 개월</label>
-                    <div class="col-md-8"><input type="text" class="form-control" /></div>
+                    <div class="col-md-8"><input type="text" id="remain_month" class="form-control" /></div>
                 </div>
                 <div class="col-md-4 form-group">
                     <label class="col-md-4 control-label">한 달 할부 요금</label>
-                    <div class="col-md-8"><input type="text" class="form-control" /></div>
+                    <div class="col-md-8"><input type="text" id="price_month" class="form-control" /></div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12 form-group">
                     <label class="col-md-3 control-label">부가 서비스</label>
-                    <div class="col-md-9"><input type="text" class="form-control" /></div>
+                    <div class="col-md-9"><input type="text" id="extra_service" class="form-control" /></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-10 form-group">
                 </div>
                 <div class="col-md-2 form-group">
-                    가입 일자
+                    <span>가입 일자 : </span>
+                    <span id="date"></span>
                 </div>
             </div>
         </div>

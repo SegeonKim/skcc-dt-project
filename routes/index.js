@@ -16,7 +16,7 @@ router.get('/user', function(req, res, next) {
 
 router.post('/recommand', function(req, res) {
     feature.recommand(req, function(result) {
-        res.json(JSON.stringify(result));
+        res.json(result);
     });
 });
 
@@ -31,6 +31,12 @@ router.post('/user/remove', function(req, res) {
         res.json(result);
     });
 });
+
+// router.get('/get/db/phonenplan', function(req, res) {
+//     feature.get_db.phone_n_plan(req, function(result) {
+//
+//     })
+// });
 
 
 
