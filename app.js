@@ -6,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 var port = process.env.PORT || 8080;
+
+var mongoose = require('mongoose');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -45,6 +45,15 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+var db = mongoose.connection;
+
+mongoose.connect('mongodb://@localhost:27017/dt', function(err) {
+    if (err) {
+        console.error('mongodb connection error', err);
+    }
+    console.log('mongodb connected');
 });
 
 var server = app.listen(port, function(){
