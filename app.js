@@ -49,7 +49,7 @@ app.use(function(err, req, res, next) {
 
 var db = mongoose.connection;
 
-mongoose.connect('mongodb://segeon:segeon@localhost:27017', function(err) {
+mongoose.connect('mongodb://segeon:segeon@localhost:27017/dt', function(err) {
     if (err) {
         console.error('mongodb connection error', err);
     }
