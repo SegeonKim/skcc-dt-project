@@ -161,3 +161,17 @@ td {
   max-height: 400px;
   overflow: auto;
 }
+
+#user_detail_modal label {
+    margin-top: 6px;
+}
+
+#user_detail_modal .row {
+    margin-top: 14px;
+    padding-top: 20px;
+}
+
+.border_right {
+    border-right: 1px solid;
+    border-color: #d2d6de;
+}

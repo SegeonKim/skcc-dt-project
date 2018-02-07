@@ -14,7 +14,7 @@ router.get('/user', function(req, res, next) {
     res.render('user.html');
 });
 
-router.get('/recommand', function(req, res) {
+router.post('/recommand', function(req, res) {
     feature.recommand(req, function(result) {
         res.json(JSON.stringify(result));
     });
@@ -22,6 +22,12 @@ router.get('/recommand', function(req, res) {
 
 router.get('/user/getall', function(req, res) {
     feature.user.get_all(req, function(result) {
+        res.json(result);
+    });
+});
+
+router.post('/user/remove', function(req, res) {
+    feature.user.remove(req, function(result) {
         res.json(result);
     });
 });
