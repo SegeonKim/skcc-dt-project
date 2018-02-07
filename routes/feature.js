@@ -10,9 +10,11 @@ feature.recommand = function(req, callback) {
     var res = {};
     var calc_age = function(max, min) {
         if (!max) {
-            return min;
+            min = parseInt(min / 10, 10);
+            return min * 10;
         } else if (!min) {
-            return max;
+            max = parseInt(max / 10, 10);
+            return max * 10;
         }
 
         max = parseInt(max, 10);
