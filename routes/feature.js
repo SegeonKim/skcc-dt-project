@@ -7,6 +7,7 @@ var recommand_data = require('./recommand_data.js');
 var feature = {};
 
 feature.recommand = function(req, callback) {
+    var res = {};
     var calc_age = function(max, min) {
         max = parseInt(max, 10);
         min = parseInt(min, 10);
@@ -14,15 +15,20 @@ feature.recommand = function(req, callback) {
         return avg * 10;
     };
     var data = req.body;
-    var age = calc_age(data.images[0].faces[0].age.max, data.images[0].faces[0].age.min);
-    var sex = data.images[0].faces[0].gender.gender.toLowerCase();
 
-    var res = {
-        result: true,
-        data: {
-            phone: recommand_data.phone[sex][age],
-            plan: recommand_data.plan[sex][age]
+    if (data.images) {
+        var age = calc_age(data.images[0].faces[0].age.max, data.images[0].faces[0].age.min);
+        var sex = data.images[0].faces[0].gender.gender.toLowerCase();
+
+        res = {
+            result: true,
+            data: {
+                phone: recommand_data.phone[sex][age],
+                plan: recommand_data.plan[sex][age]
+            }
         }
+    } else {
+        res.result = false;
     }
     callback(res);
 };
