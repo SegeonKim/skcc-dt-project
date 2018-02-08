@@ -38,7 +38,7 @@ feature.recommand = function(req, callback) {
             }
         }
         console.log("-------[VR] Result-------");
-        console.log("Age : " + (min ? min + " ~ " : "") max);
+        console.log("Age : " + (min ? min + " ~ " : "") + max);
         console.log("Sex : ", sex);
     } else {
         res.result = false;
