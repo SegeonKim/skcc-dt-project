@@ -62,21 +62,59 @@ var make_user_table = function(data, callback) {
     callback();
 };
 
+var current_edit_data;
+
 var make_user_detail_modal = function(data, callback) {
-    // name: String
-    // age: Number
-    // sex: String
-    // phone_number: String
-    // plan: String
-    // phone: String
-    // remain: Number
-    // remain_month: Number
-    // id_number: String
-    // address: String
-    // account: String
-    // extra_service: Array
-    // date: Date
+    current_edit_data = data;
+    $('#user_detail_modal').find('input').attr('disabled', true);
+    $('#name').val(data.name);
+    $('#age').val(data.age);
+    $('#sex').val(data.sex);
+    $('#address').val(data.address);
+    $('#phone').val(data.phone);
+    $('#bank').val(data.bank);
+    $('#account').val(data.account);
+    $('#phone_number').val(data.phone_number);
+    $('#plan').val(data.plan);
+    $('#remain').val(data.remain);
+    $('#remain_month').val(data.remain_month);
+    $('#price_month').val(data.remain/data.remain_month);
+    $('#extra_service').empty();
+    for (var i = 0; i < data.extra_service.length; i++) {
+        $('#extra_service').append('<span class="badge badge-primary">' + data.extra_service[i] + '</span>');
+    }
+    var join_date = new Date(data.date);
+    $('#date').text(join_date.getFullYear() + '/' + (join_date.getMonth() + 1) + '/' + join_date.getDate());
+
+    if (callback && typeof(callback) == 'function') {
+        callback(true);
+    }
 };
+
+$('#user_detail_edit').on('click', function() {
+    $('#user_detail_modal').find('input').removeAttr('disabled');
+    $('#user_detail_edit_cancel').show();
+    $('#user_detail_edit_ok').show();
+    $('#user_detail_cancel').hide();
+    $('#user_detail_edit').hide();
+});
+
+$('#user_detail_edit_cancel').on('click', function() {
+    $('#user_detail_edit_cancel').hide();
+    $('#user_detail_edit_ok').hide();
+    $('#user_detail_cancel').show();
+    $('#user_detail_edit').show();
+    $('#user_detail_modal').find('input').attr('disabled', true);
+    make_user_detail_modal(current_edit_data);
+});
+
+$('#user_detail_edit_ok').on('click', function() {
+    $('#user_detail_edit_cancel').hide();
+    $('#user_detail_edit_ok').hide();
+    $('#user_detail_cancel').show();
+    $('#user_detail_edit').show();
+    $('#user_detail_modal').find('input').attr('disabled', true);
+});
 
 $('.user_management').on('click', function() {
   // $('.loading_bg').show();
@@ -113,12 +151,17 @@ $('#user_table').on('click', '.user_checkbox', function(e) {
 });
 
 $('#user_table').on('click', '.show_detail', function(e) {
-    $('#loading_bg').show();
+    $('.loading_bg').show();
     var user_code = $(this).parent().parent().attr('user-code');
     var user_data = user_key_list[user_code];
 
+    $('#user_detail_edit_cancel').hide();
+    $('#user_detail_edit_ok').hide();
+    $('#user_detail_cancel').show();
+    $('#user_detail_edit').show();
+
     make_user_detail_modal(user_data, function(result) {
-        $('#loading_bg').hide();
+        $('.loading_bg').hide();
         if (result) {
             $('#user_detail_modal').modal('show');
         } else {
@@ -132,7 +175,7 @@ $('#user_table').on('click', '.checkbox_td', function(e) {
 });
 
 var confirmation_remove_modal = $('#confirmation_remove_modal');
-$('#confirmation_remove_modal').find('#btn_ok').on('click', function(e) {
+$('#confirmation_remove_modal').find('.btn_ok').on('click', function(e) {
     $('.loading_bg').show();
     var $checked_user = $('.user_checkbox:checked');
     var numbers = [];
@@ -150,5 +193,10 @@ $('#confirmation_remove_modal').find('#btn_ok').on('click', function(e) {
 });
 
 $('#remove_user').on('click', function(e) {
-    confirmation_remove_modal.modal('show');
+    var $checked_user = $('.user_checkbox:checked');
+    if ($checked_user.length == 0) {
+        alert.show('삭제할 고객을 체크해주세요.');
+    } else {
+        confirmation_remove_modal.modal('show');
+    }
 });

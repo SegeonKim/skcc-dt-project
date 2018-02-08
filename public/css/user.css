@@ -153,6 +153,10 @@ td {
   height: 170px;
 }
 
+.second_box {
+    padding: 0px 15px;
+}
+
 .small-box {
   height: 133px;
 }
@@ -178,4 +182,14 @@ td {
 
 .checkbox_td {
     cursor: pointer;
+}
+
+.badge-primary {
+    background-color: #00c0ef;
+    border-color: #00acd6;
+    margin-right: 10px;
+}
+
+#extra_service {
+    padding-top: 5px;
 }

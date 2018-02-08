@@ -44,6 +44,38 @@ var user_data = [
         bank: '신한',
         extra_service: ['부가1', '부가2', '부가3'],
         date: new Date()
+    },
+    {
+        name: '오예진',
+        age: 26,
+        sex: '여',
+        phone_number: '01055556666',
+        plan: 'Band 어르신 1.2G',
+        phone: 'Galaxy A7',
+        remain: 150000,
+        remain_month: 2,
+        id_number: '930101-1234567',
+        address: '경기도 안양시 어딘가',
+        account: '1002-333-123456',
+        bank: '기업',
+        extra_service: ['부가설뷔스1'],
+        date: new Date()
+    },
+    {
+        name: '이주하',
+        age: 24,
+        sex: '여',
+        phone_number: '01077778888',
+        plan: '뉴 T끼리 맞춤형(100분+250MB)',
+        phone: 'Q6',
+        remain: 150000,
+        remain_month: 2,
+        id_number: '930101-1234567',
+        address: '경기도 안양시 어딘가',
+        account: '1002-333-123456',
+        bank: '카카오',
+        extra_service: ['부가설뷔스1', '부부부부부부부부부부가~'],
+        date: new Date()
     }
 ];
 

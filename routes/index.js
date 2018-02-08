@@ -44,6 +44,12 @@ router.post('/user/remove', function(req, res) {
     });
 });
 
+router.post('/user/join', function(req, res) {
+    feature.user.join(req, function(result) {
+        res.json(result);
+    })
+});
+
 // router.get('/get/db/phonenplan', function(req, res) {
 //     feature.get_db.phone_n_plan(req, function(result) {
 //
