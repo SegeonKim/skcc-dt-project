@@ -25,7 +25,9 @@ feature.recommand = function(req, callback) {
     var data = req.body;
 
     if (data.images) {
-        var age = calc_age(data.images[0].faces[0].age.max, data.images[0].faces[0].age.min);
+        var max = data.images[0].faces[0].age.max;
+        var min = data.images[0].faces[0].age.min;
+        var age = calc_age(max, min);
         var sex = data.images[0].faces[0].gender.gender.toLowerCase();
 
         res = {
@@ -35,6 +37,9 @@ feature.recommand = function(req, callback) {
                 plan: recommand_data.plan[sex][age]
             }
         }
+        console.log("-------[VR] Result-------");
+        console.log("Age : " + (min ? min + " ~ " : "") max);
+        console.log("Sex : ", sex);
     } else {
         res.result = false;
     }
