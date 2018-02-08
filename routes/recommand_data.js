@@ -4,7 +4,7 @@ var phone_key = {
     3: 'Galaxy S8',
     4: 'Galaxy A7',
     5: 'X4+',
-    6: 'A8',
+    6: 'Galaxy A8',
     7: 'V30',
     8: 'XPERIA XZ1',
     9: 'Q6'

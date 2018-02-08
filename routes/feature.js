@@ -38,7 +38,9 @@ get_dbs();
 var feature = {};
 
 feature.recommand = function(req, callback) {
-    var res = {};
+    var res = {
+        result: false
+    };
     var calc_age = function(max, min) {
         if (!max) {
             min = parseInt(min / 10, 10);
@@ -62,6 +64,8 @@ feature.recommand = function(req, callback) {
         var sex = data.images[0].faces[0].gender.gender.toLowerCase();
         var phone_res = [];
         var plan_res = [];
+
+        if (age > 50) age = 50;
 
         async.waterfall([
             function(next) {
