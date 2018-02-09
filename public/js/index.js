@@ -112,7 +112,7 @@ var init_customer_chart = function(data) {
 
   for (var i in age_data) {
     var label = i*10 + '대';
-    template.push('<li><i class="fa fa-circle-o ' + color_class[i] + '"></i> ' + label + '</li>');
+    template.push('<li><i style="margin-right:2px;" class="fa fa-circle ' + color_class[i] + '"></i> ' + label + '</li>');
     customer_data.push({
       value: age_data[i],
       color: color_list[i],
@@ -171,8 +171,8 @@ var init_customer_chart = function(data) {
   $('#customer_info').append(template);
   var _template = [
     '<ul class="chart-legend clearfix">',
-    '<li><i class="fa fa-circle-o text-aqua"></i> ' + '남성' + '</li>',
-    '<li><i class="fa fa-circle-o text-red"></i> ' + '여성' + '</li>',
+    '<li><i style="margin-right:2px;" class="fa fa-circle text-aqua"></i> ' + '남성' + '</li>',
+    '<li><i style="margin-right:2px;" class="fa fa-circle text-red"></i> ' + '여성' + '</li>',
     '</ul>'
   ].join('');
   $('#customer_sex_info').append(_template);
@@ -186,7 +186,7 @@ var init_customer_chart = function(data) {
 
   for (var i in phone_data) {
     var label = i;
-    template.push('<li><i class="fa fa-circle-o ' + color_class[cnt] + '"></i> ' + label + '</li>');
+    template.push('<li><i style="margin-right:2px;" class="fa fa-circle ' + color_class[cnt] + '"></i> ' + label + '</li>');
     phone_chart_data.push({
       value: phone_data[i],
       color: color_list[cnt],
@@ -211,7 +211,7 @@ var init_customer_chart = function(data) {
   cnt = 1;
   for (var i in plan_data) {
     var label = i;
-    template.push('<li><i class="fa fa-circle-o ' + color_class[cnt] + '"></i> ' + label + '</li>');
+    template.push('<li><i style="margin-right:2px;" class="fa fa-circle ' + color_class[cnt] + '"></i> ' + label + '</li>');
     plan_chart_data.push({
       value: plan_data[i],
       color: color_list[cnt],
