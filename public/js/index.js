@@ -1,24 +1,32 @@
 
 var init = function() {
-  $.get('/customer/lookup/all', {}, function(data) {
+  $.get('/user/getall', {}, function(data) {
     if (data.result) {
-      parse_customer_data(data.data, function(result) {
+        if (data.session) {
+            is_session();
+        }
+        parse_customer_data(data.data, function(result) {
         init_customer_chart(result);
-      });
-    } else {
-      console.log('Fail!');
-    }
-
-    $.post('/sales/lookup', {}, function(data) {
-      if (data.result) {
-        parse_sale_data(data.data, function(result) {
-          init_sale_chart(result);
         });
-      } else {
-        console.log('Fail!!!');
-      }
-    });
+        parse_sale_data(data.data, function(result) {
+        init_sale_chart(result);
+        });
+    } else {
+        console.log('Fail!');
+    }
   });
+};
+
+$('#sign_out_btn').on('click', function() {
+    $.post('/signout', {}, function() {
+        window.location.href = '/';
+    });
+});
+
+var is_session = function() {
+    $('.user_name').text('관리자');
+    $('#sign_in_btn').hide();
+    $('#sign_out_btn').show();
 };
 
 var parse_customer_data = function(data, callback) {
@@ -27,27 +35,50 @@ var parse_customer_data = function(data, callback) {
     'F': 0,
     'M': 0
   };
+  var phone_spread = {};
+  var plan_spread = {};
 
   for (var i = 0; i < data.length; i++) {
-    var age = parseInt(data[i].CUSTOMER_AGE/10);
-    var sex = data[i].CUSTOMER_SEX;
+    var age = parseInt(data[i].age/10);
+    var sex = data[i].sex;
+    var phone = data[i].phone;
+    var plan = data[i].plan;
+
     if (age_spread[age]) {
       age_spread[age]++;
     } else {
       age_spread[age] = 1;
     }
-    sex_spread[sex]++;
+    if (sex == '남') {
+        sex_spread['M']++;
+    } else {
+        sex_spread['F']++;
+    }
+    if (phone_spread[phone]) {
+      phone_spread[phone]++;
+    } else {
+      phone_spread[phone] = 1;
+    }
+    if (plan_spread[plan]) {
+      plan_spread[plan]++;
+    } else {
+      plan_spread[plan] = 1;
+    }
   }
 
   callback({
     age_data: age_spread,
-    sex_data: sex_spread
+    sex_data: sex_spread,
+    phone_data: phone_spread,
+    plan_data: plan_spread
   });
 };
 
 var init_customer_chart = function(data) {
   var age_data = data.age_data;
   var sex_data = data.sex_data;
+  var phone_data = data.phone_data;
+  var plan_data = data.plan_data;
 
   var customer_chart_canvas = $("#customer_chart").get(0).getContext("2d");
   var customer_chart = new Chart(customer_chart_canvas);
@@ -58,16 +89,23 @@ var init_customer_chart = function(data) {
     '2': "#00c0ef",
     '3': "#f39c12",
     '4': "#00a65a",
-    '5': "#f56954",
-    '6': "#d2d6de"
+    '5': "#3d9970",
+    '6': "#d2d6de",
+    '7': "#f012be",
+    '8': "#605ca8",
+    '9': "#d81b60"
+
   };
   var color_class = {
     '1': "text-light-blue",
     '2': "text-aqua",
     '3': "text-yellow",
     '4': "text-green",
-    '5': "text-red",
-    '6': "text-gray"
+    '5': "text-olive",
+    '6': "text-gray",
+    '7': "text-fuchsia",
+    '8': "text-purple",
+    '9': "text-maroon"
   }
 
   var template = ['<ul class="chart-legend clearfix">'];
@@ -138,39 +176,108 @@ var init_customer_chart = function(data) {
     '</ul>'
   ].join('');
   $('#customer_sex_info').append(_template);
+
+  var phone_chart_canvas = $("#phone_chart").get(0).getContext("2d");
+  var phone_chart = new Chart(phone_chart_canvas);
+  var phone_chart_data = [];
+
+  var template = ['<ul class="chart-legend clearfix">'];
+  var cnt = 1;
+
+  for (var i in phone_data) {
+    var label = i;
+    template.push('<li><i class="fa fa-circle-o ' + color_class[cnt] + '"></i> ' + label + '</li>');
+    phone_chart_data.push({
+      value: phone_data[i],
+      color: color_list[cnt],
+      highlight: color_list[cnt],
+      label: label
+    });
+    cnt++;
+  }
+  template.push('</ul>');
+
+  template.join('');
+
+  phone_chart.Doughnut(phone_chart_data, pie_options);
+  $('#phone_info').append(template);
+
+  var plan_chart_canvas = $("#plan_chart").get(0).getContext("2d");
+  var plan_chart = new Chart(plan_chart_canvas);
+  var plan_chart_data = [];
+
+  var template = ['<ul class="chart-legend clearfix">'];
+
+  cnt = 1;
+  for (var i in plan_data) {
+    var label = i;
+    template.push('<li><i class="fa fa-circle-o ' + color_class[cnt] + '"></i> ' + label + '</li>');
+    plan_chart_data.push({
+      value: plan_data[i],
+      color: color_list[cnt],
+      highlight: color_list[cnt],
+      label: label
+    });
+    cnt++;
+  }
+  template.push('</ul>');
+
+  template.join('');
+
+  plan_chart.Doughnut(plan_chart_data, pie_options);
+  $('#plan_info').append(template);
 };
 
 var parse_sale_data = function(data, callback) {
-  var month_data = {};
+  var joiner_data = {};
+  var date = new Date();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var labels = [];
+  for (var i = 0; i < 7; i++) {
+      date.setDate(date.getDate() - i);
+      labels.unshift((date.getMonth()+1) + ' / ' + date.getDate());
+  }
 
   for(var i = 0; i < data.length; i++) {
-    var date = data[i].SELLING_DATE.toString().slice(0, 6);
-    var price = data[i].SELLING_PRICE;
+    var today_data = new Date(data[i].date);
+    var month = today_data.getMonth() + 1;
+    var today = today_data.getDate();
 
-    if (month_data[date]) {
-      month_data[date]+=parseInt(price);
-    } else {
-      month_data[date] = parseInt(price);
+    if (labels.indexOf(month + ' / ' + today) > -1) {
+        if (joiner_data[month + ' / ' + today]) {
+          joiner_data[month + ' / ' + today]++;
+        } else {
+          joiner_data[month + ' / ' + today] = 1;
+        }
     }
   }
 
-  callback(month_data);
+  callback(joiner_data);
 };
 
 var init_sale_chart = function(data) {
   var label = [];
   var chart_data = [];
 
-  for (var i in data) {
-    label.push(i.slice(0, 4) + '.' + i.slice(4, 6));
-    chart_data.push(data[i]);
+  var date = new Date();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var labels = [];
+
+  labels.unshift((date.getMonth()+1) + ' / ' + date.getDate());
+  chart_data.unshift(data[(date.getMonth()+1) + ' / ' + date.getDate()] || 0);
+  for (var i = 0; i < 6; i++) {
+      date.setDate(date.getDate() - 1);
+      labels.unshift((date.getMonth()+1) + ' / ' + date.getDate());
+      chart_data.unshift(data[(date.getMonth()+1) + ' / ' + date.getDate()] || 0);
   }
 
   var areaChartData = {
-    labels: label,
+    labels: labels,
     datasets: [
       {
-        label: "매출 현황",
+        label: "가입자수 현황",
         fillColor: "rgba(60,141,188,0.9)",
         strokeColor: "rgba(60,141,188,0.8)",
         pointColor: "#3b8bba",
@@ -229,8 +336,16 @@ var init_sale_chart = function(data) {
 };
 
 var init_chart = function() {
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var labels = [];
+    for (var i = 0; i < 7; i++) {
+        date.setDate(date.getDate() - i);
+        labels.unshift((date.getMonth()+1) + ' / ' + date.getDate());
+    }
   var areaChartData = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
       {
         label: "Electronics",

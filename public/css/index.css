@@ -11,3 +11,18 @@ li {
 .second_box {
   margin-top: 30px;
 }
+
+.third_box {
+  margin-top: 30px;
+}
+
+.main-header .logo,
+.main-header .logo:hover {
+    background-color: #d12d2c !important;
+}
+
+.main-header .navbar,
+.main-header .navbar:hover,
+.main-header .navbar .sidebar-toggle:hover {
+    background-color: #ed7422 !important;
+}

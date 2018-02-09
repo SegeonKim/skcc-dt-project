@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DT | Direct T World</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/css/AdminLTE.css">
+  <link rel="stylesheet" href="/css/skins/_all-skins.min.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini" style="background-color:#ecf0f5">
+    <div class="login-box" style="width:500px;padding:70px;margin-top:15%;background-color:#ffffff70;">
+        <div class="login-logo">
+            <a href="/">
+                <img style="width:340px;" src="/img/DirectTworld_sequential.png" />
+            </a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body" style="padding-top: 20px; padding-bottom: 40px; background-color:transparent !important;">
+            <!-- <p class="login-box-msg">Sign in to start your session</p> -->
+
+            <!-- <form action="/" method="post"> -->
+                <div class="form-group has-feedback">
+                    <input type="id" class="form-control input_box" placeholder="ID">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control input_box" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button style="background-color:#e6333a !important;border-color:#e6333a !important;" id="sign_in_btn" class="btn btn-primary btn-block btn-flat">로그인</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            <!-- </form> -->
+
+            <!-- <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using
+                    Facebook</a>
+                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using
+                    Google+</a>
+            </div> -->
+            <!-- /.social-auth-links -->
+
+            <!-- <a href="#">I forgot my password</a><br> -->
+            <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+
+    <div id="alert_modal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document" style="width: 500px;margin-top: 250px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="fa fa-bullhorn" style="margin-right: 10px;"></i>알림</h4>
+          </div>
+          <div class="modal-body">
+            <p style="text-align: center;"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">닫기</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/libs/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/libs/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/alert.js"></script>
+<script src="/js/login.js"></script>
+</body>
+</html>

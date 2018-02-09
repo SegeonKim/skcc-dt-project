@@ -6,6 +6,18 @@
   z-index: 99999;
 }
 
+.main-header .logo,
+.main-header .logo:hover {
+    background-color: #d12d2c !important;
+}
+
+.main-header .navbar,
+.main-header .navbar:hover,
+.main-header .navbar .sidebar-toggle:hover {
+    background-color: #ed7422 !important;
+}
+
+
 .sk-fading-circle {
   margin: 350px auto;
   width: 60px;

@@ -1,6 +1,7 @@
 var user_db = require('./dbs/user.js');
 var phone_db = require('./dbs/phone.js');
 var plan_db = require('./dbs/plan.js');
+var leaving_db = require('./dbs/leaving.js');
 var async = require('async');
 var recommand_data = require('./recommand_data.js');
 var phone_data = {};
@@ -130,17 +131,63 @@ feature.user.remove = function(req, callback) {
     var res = {
         result: true
     };
+    var cnt = 0;
 
     async.map(user_list, function(number, next) {
         user_db.remove({
             phone_number: number
         }, function(err) {
+            cnt++;
             next(err);
         });
     }, function(err) {
         if (err) {
             console.log('[Err] Remove user DB : ', err);
             res.result = false;
+        }
+        var today = new Date();
+        leaving_db.findOne({
+            month: today.getMonth(),
+            date: today.getDate()
+        }, function(err, data) {
+            if (!data) {
+                var new_leaving = new leaving_db({
+                    month: today.getMonth(),
+                    date: today.getDate(),
+                    count: cnt
+                });
+                new_leaving.save(function() {
+                    callback(res);
+                });
+            } else {
+                leaving_db.update({
+                    month: today.getMonth(),
+                    date: today.getDate()
+                }, {
+                    $set: {
+                        count: data.count + cnt
+                    }
+                }, function() {
+                    callback(res);
+                });
+
+            }
+        });
+    });
+};
+
+feature.user.getleaving = function(req, callback) {
+    var res = {
+        result: false
+    };
+    var today = new Date();
+    leaving_db.findOne({
+        month: today.getMonth(),
+        date: today.getDate()
+    }, function(err, data) {
+        if (data) {
+            res.result = true;
+            res.count = data.count;
         }
         callback(res);
     });
@@ -172,6 +219,26 @@ feature.user.join = function(req, callback) {
             res.result = false;
         } else {
             console.log('Complete join!!');
+            res.result = true;
+        }
+        callback(res);
+    });
+};
+
+feature.user.update = function(req, callback) {
+    var res = {
+        result: false
+    };
+    var new_data = req.body;
+
+    user_db.update({
+        phone_number: new_data.phone_number
+    }, {
+        $set: new_data
+    }, function(err) {
+        if (err) {
+            console.log('Fail update user DB : ', err);
+        } else {
             res.result = true;
         }
         callback(res);

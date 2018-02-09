@@ -6,16 +6,38 @@ var init = function() {
 
     $.get('/user/getall', {}, function(data) {
         if (data.result) {
+            if (data.session) {
+                is_session();
+            }
             user_list = data.data;
             $('#user_treeview').click();
+
             make_user_table(data.data, function() {
                 $('.loading_bg').hide();
+            });
+
+            $.get('/user/getleaving', {}, function(data) {
+                if (data.result) {
+                    $('.user_leaving').find('.inner > p').text('오늘 탈퇴자수 : ' + data.count);
+                }
             });
         } else {
             $('.loading_bg').hide();
             alert.show('데이터를 가져오는데 실패하였습니다.');
         }
     });
+};
+
+$('#sign_out_btn').on('click', function() {
+    $.post('/signout', {}, function() {
+        window.location.href = '/';
+    });
+});
+
+var is_session = function() {
+    $('.user_name').text('관리자');
+    $('#sign_in_btn').hide();
+    $('#sign_out_btn').show();
 };
 
 var today_new_member = 0;
@@ -78,7 +100,7 @@ var make_user_detail_modal = function(data, callback) {
     $('#plan').val(data.plan);
     $('#remain').val(data.remain);
     $('#remain_month').val(data.remain_month);
-    $('#price_month').val(data.remain/data.remain_month);
+    $('#price_month').val(parseInt(data.remain/data.remain_month));
     $('#extra_service').empty();
     for (var i = 0; i < data.extra_service.length; i++) {
         $('#extra_service').append('<span class="badge badge-primary">' + data.extra_service[i] + '</span>');
@@ -97,6 +119,7 @@ $('#user_detail_edit').on('click', function() {
     $('#user_detail_edit_ok').show();
     $('#user_detail_cancel').hide();
     $('#user_detail_edit').hide();
+    $('#phone_number').attr('disabled', true);
 });
 
 $('#user_detail_edit_cancel').on('click', function() {
@@ -114,6 +137,55 @@ $('#user_detail_edit_ok').on('click', function() {
     $('#user_detail_cancel').show();
     $('#user_detail_edit').show();
     $('#user_detail_modal').find('input').attr('disabled', true);
+
+    var name = $('#name').val();
+    var age = $('#age').val();
+    var sex = $('#sex').val();
+    var address = $('#address').val();
+    var bank = $('#bank').val();
+    var account = $('#account').val();
+    var phone = $('#phone').val();
+    var plan = $('#plan').val();
+    var remain = $('#remain').val();
+    var remain_month = $('#remain_month').val();
+    var phone_number = current_edit_data.phone_number;
+
+    if (!name || !age || !sex || !address || !phone || !bank || !account || !phone_number || !plan || !remain || !remain_month) {
+        alert.show('빈 데이터가 있습니다. 모두 입력해 주세요.');
+        return;
+    }
+
+    var new_data = {
+        name: name,
+        age: age,
+        sex: sex,
+        address: address,
+        bank: bank,
+        account: account,
+        phone: phone,
+        plan: plan,
+        remain: remain,
+        remain_month: remain_month,
+        phone_number: phone_number
+    };
+
+    $('.loading_bg').show();
+
+    $.post('/user/update', new_data, function(result) {
+        $('.loading_bg').hide();
+        if (result.result) {
+            for (var i in new_data) {
+                current_edit_data[i] = new_data[i];
+            }
+            alert.show('정보를 수정하였습니다.');
+        } else {
+            $('#user_detail_modal').modal('hide');
+            alert.show('정부 수정에 실패하였습니다.');
+
+        }
+    });
+
+
 });
 
 $('.user_management').on('click', function() {

@@ -301,9 +301,16 @@ a:focus {
 }
 .main-header .logo .logo-lg {
   display: block;
+  width: 190px;
+  margin-top: 7px;
+  margin-left: 4px;
 }
 .main-header .logo .logo-mini {
   display: none;
+  width: 42px;
+  margin-left: -11px !important;
+  margin-right: 0px !important;
+  margin-top: 12px;
 }
 .main-header .navbar-brand {
   color: #fff;
