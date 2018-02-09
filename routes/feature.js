@@ -100,10 +100,9 @@ feature.recommand = function(req, callback) {
             callback(res);
         });
 
-
-
     } else {
         res.result = false;
+        console.log('Wrong VR Data!');
         callback(res);
     }
 };

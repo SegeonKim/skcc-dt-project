@@ -31,104 +31,71 @@ var user_data = [
     //     bank: '우리',
     //     extra_service: ['부가1', '부가2'],
     //     date: new Date()
-    // },
-    // {
-    //     name: '정지영',
-    //     age: 27,
-    //     sex: '남',
-    //     phone_number: '01033334444',
-    //     plan: 'Band3.2G',
-    //     phone: 'iPhone 8',
-    //     remain: 530000,
-    //     remain_month: 10,
-    //     id_number: '920101-1234567',
-    //     address: '경기도 성남시 어딘가',
-    //     account: '1002-333-123456',
-    //     bank: '신한',
-    //     extra_service: ['부가1', '부가2', '부가3'],
-    //     date: new Date()
-    // },
-    // {
-    //     name: '오예진',
-    //     age: 26,
-    //     sex: '여',
-    //     phone_number: '01055556666',
-    //     plan: 'Band 어르신 1.2G',
-    //     phone: 'Galaxy A7',
-    //     remain: 150000,
-    //     remain_month: 2,
-    //     id_number: '930101-1234567',
-    //     address: '경기도 안양시 어딘가',
-    //     account: '1002-333-123456',
-    //     bank: '기업',
-    //     extra_service: ['부가설뷔스1'],
-    //     date: new Date()
-    // },
-    // {
-    //     name: '이주하',
-    //     age: 24,
-    //     sex: '여',
-    //     phone_number: '01077778888',
-    //     plan: '뉴 T끼리 맞춤형(100분+250MB)',
-    //     phone: 'Q6',
-    //     remain: 150000,
-    //     remain_month: 2,
-    //     id_number: '930101-1234567',
-    //     address: '경기도 안양시 어딘가',
-    //     account: '1002-333-123456',
-    //     bank: '카카오',
-    //     extra_service: ['부가설뷔스1', '부부부부부부부부부부가~'],
-    //     date: new Date()
     // }
-    {
-        name: '신승관',
-        age: 17,
-        sex: '남',
-        phone_number: '01021234355',
-        plan: 'Band 데이터 퍼펙트',
-        phone: 'Galaxy S8',
-        remain: 240000,
-        remain_month: 8,
-        id_number: '200211-1234567',
-        address: '경기도 용인시 어딘가',
-        account: '1002-333-123456',
-        bank: '우리',
-        extra_service: ['부가1', '부가2'],
-        date: now
-    },
-    {
-        name: '윤성준',
-        age: 34,
-        sex: '남',
-        phone_number: '01022114455',
-        plan: 'Band3.2G',
-        phone: 'XPERIA XZ1',
-        remain: 530000,
-        remain_month: 10,
-        id_number: '920101-1433434',
-        address: '경기도 성남시 어딘가',
-        account: '1002-333-123456',
-        bank: '신한',
-        extra_service: ['부가1', '부가2', '부가3'],
-        date: now
-    },
-    {
-        name: '사나',
-        age: 19,
-        sex: '여',
-        phone_number: '01012345555',
-        plan: 'Band 어르신 1.2G',
-        phone: 'Galaxy A7',
-        remain: 150000,
-        remain_month: 2,
-        id_number: '010101-1234567',
-        address: '경기도 안양시 어딘가',
-        account: '1002-333-123456',
-        bank: '기업',
-        extra_service: ['부가설뷔스1'],
-        date: now
-    }
 ];
+
+var phone_key = {
+    1: 'iPhone X',
+    2: 'iPhone 8',
+    3: 'Galaxy S8',
+    4: 'Galaxy A7',
+    5: 'X4+',
+    6: 'Galaxy A8',
+    7: 'V30',
+    8: 'XPERIA XZ1',
+    9: 'Q6'
+};
+
+var plan_key = {
+    1: 'Band 1.2G',
+    2: 'Band3.2G',
+    3: 'Band 어르신 1.2G',
+    4: 'Band 데이터 퍼펙트',
+    5: 'Band 데이터 퍼펙트S',
+    6: '뉴 T끼리 맞춤형(100분+250MB)'
+};
+
+var bank_key = ['우리', '신한', '카카오', '기업', '농협']
+
+
+for (var i = 0; i < 236; i++) {
+    var name = 1;
+    var age = (parseInt(Math.random() * 100) % 50) + 10;
+    var sex = parseInt(Math.random() * 10) % 2 == 0 ? '남' : '여';
+    var phone_number = 1000;
+    var plan = plan_key[(parseInt(Math.random() * 100) % 6) + 1];
+    var phone = phone_key[(parseInt(Math.random() * 100) % 9) + 1];
+    var remain = parseInt(Math.random() * 100) * 10000
+    var remain_month = parseInt(Math.random() * 100) % 24 + 1;
+    var id_number = 1234111;
+    var address = 'SK Street ' + name + '번가';
+    var account = '1002-333-123456';
+    var bank = bank_key[parseInt(Math.random() * 100) % 5];
+    var extra_service = ['부가1', '부가2', '컬러링', '데이터안심보험'];
+    var date = new Date();
+    date.setDate(date.getDate() - (parseInt(Math.random() * 10) % 7));
+
+    var new_data = {
+        name: name.toString(),
+        age: age,
+        sex: sex,
+        phone_number: '0101234' + phone_number.toString(),
+        plan: plan,
+        phone: phone,
+        remain: remain,
+        remain_month: remain_month,
+        id_number: '123456-' + id_number.toString();,
+        address: address,
+        account: account,
+        bank: bank,
+        extra_service: extra_service,
+        date: date
+    }
+    name++;
+    phone_number++;
+    id_number++;
+    user_data.push(new_data);
+}
 
 var script = function() {
     async.map(user_data, function(data, next) {
