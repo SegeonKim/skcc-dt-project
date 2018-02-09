@@ -66,6 +66,11 @@ feature.recommand = function(req, callback) {
         var phone_res = [];
         var plan_res = [];
 
+        var score = parseInt(data.images[0].faces[0].gender.score);
+        if (score <= 40) {
+            sex = sex == 'male' ? 'female' : 'male';
+        }
+
         if (age > 50) age = 50;
 
         async.waterfall([
