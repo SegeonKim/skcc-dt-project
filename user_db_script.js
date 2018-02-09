@@ -12,8 +12,6 @@ mongoose.connect('mongodb://segeon:segeon@localhost:27017/dt', function(err) {
 
 var user_db = require('./routes/dbs/user.js');
 
-var now = new Date();
-now.setDate(now.getDate()-1);
 
 var user_data = [
     // {
@@ -58,16 +56,16 @@ var plan_key = {
 var bank_key = ['우리', '신한', '카카오', '기업', '농협']
 
 
-for (var i = 0; i < 236; i++) {
-    var name = 1;
+var name = 1;
+var phone_number = 1000;
+var id_number = 1234111;
+for (var i = 0; i < 812; i++) {
     var age = (parseInt(Math.random() * 100) % 50) + 10;
     var sex = parseInt(Math.random() * 10) % 2 == 0 ? '남' : '여';
-    var phone_number = 1000;
     var plan = plan_key[(parseInt(Math.random() * 100) % 6) + 1];
     var phone = phone_key[(parseInt(Math.random() * 100) % 9) + 1];
     var remain = parseInt(Math.random() * 100) * 10000
     var remain_month = parseInt(Math.random() * 100) % 24 + 1;
-    var id_number = 1234111;
     var address = 'SK Street ' + name + '번가';
     var account = '1002-333-123456';
     var bank = bank_key[parseInt(Math.random() * 100) % 5];
@@ -84,7 +82,7 @@ for (var i = 0; i < 236; i++) {
         phone: phone,
         remain: remain,
         remain_month: remain_month,
-        id_number: '123456-' + id_number.toString();,
+        id_number: '123456-' + id_number.toString(),
         address: address,
         account: account,
         bank: bank,
@@ -99,13 +97,15 @@ for (var i = 0; i < 236; i++) {
 
 var script = function() {
     async.map(user_data, function(data, next) {
-        var new_data = {};
-        for (var i in data) {
-            new_data[i] = data[i];
-        }
-        var new_db = new user_db(new_data);
-        new_db.save();
-        next();
+        // var new_data = {};
+        // for (var i in data) {
+        //     new_data[i] = data[i];
+        // }
+        var new_db = new user_db(data);
+        new_db.save(function() {
+            next();
+        });
+
     }, function(err) {
         if (err) {
             console.log('Fail to add phone data', err);

@@ -243,7 +243,9 @@ $('#user_table').on('click', '.show_detail', function(e) {
 });
 
 $('#user_table').on('click', '.checkbox_td', function(e) {
-    $(this).children().click();
+    if ($(e.target).attr('class') != 'user_checkbox' && $(e.target).attr('id') != 'checkall') {
+        $(this).children().click();
+    }
 });
 
 var confirmation_remove_modal = $('#confirmation_remove_modal');
