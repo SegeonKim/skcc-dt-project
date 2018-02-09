@@ -94,6 +94,8 @@ feature.recommand = function(req, callback) {
             res = {
                 result: true,
                 data: {
+                    age: age,
+                    sex: sex,
                     phone: phone_res,
                     plan: plan_res
                 }

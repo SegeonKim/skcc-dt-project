@@ -112,6 +112,7 @@ var init_customer_chart = function(data) {
 
   for (var i in age_data) {
     var label = i*10 + '대';
+    if (i*10 == 50) label += ' 이상';
     template.push('<li><i style="margin-right:2px;" class="fa fa-circle ' + color_class[i] + '"></i> ' + label + '</li>');
     customer_data.push({
       value: age_data[i],
