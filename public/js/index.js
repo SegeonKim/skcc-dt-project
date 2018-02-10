@@ -5,11 +5,13 @@ var init = function() {
         if (data.session) {
             is_session();
         }
-        parse_customer_data(data.data, function(result) {
-        init_customer_chart(result);
-        });
         parse_sale_data(data.data, function(result) {
-        init_sale_chart(result);
+            init_sale_chart(result);
+        });
+        parse_customer_data(data.data, function(result) {
+            init_customer_chart(result, function() {
+                $('.loading_bg').hide();
+            });
         });
     } else {
         console.log('Fail!');
@@ -74,7 +76,7 @@ var parse_customer_data = function(data, callback) {
   });
 };
 
-var init_customer_chart = function(data) {
+var init_customer_chart = function(data, callback) {
   var age_data = data.age_data;
   var sex_data = data.sex_data;
   var phone_data = data.phone_data;
@@ -227,6 +229,10 @@ var init_customer_chart = function(data) {
 
   plan_chart.Doughnut(plan_chart_data, pie_options);
   $('#plan_info').append(template);
+
+  if (callback && typeof(callback) == 'function') {
+      callback();
+  }
 };
 
 var parse_sale_data = function(data, callback) {
