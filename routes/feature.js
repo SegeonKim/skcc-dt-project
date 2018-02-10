@@ -66,7 +66,7 @@ feature.recommand = function(req, callback) {
         var phone_res = [];
         var plan_res = [];
 
-        var score = parseInt(data.images[0].faces[0].gender.score);
+        var score = parseFloat(data.images[0].faces[0].gender.score);
         if (score <= 0.4) {
             sex = sex == 'male' ? 'female' : 'male';
         }
