@@ -12,7 +12,7 @@ var phone_key = {
 
 var plan_key = {
     1: 'Band 1.2G',
-    2: 'Band3.2G',
+    2: 'Band 3.2G',
     3: 'Band 어르신 1.2G',
     4: 'Band 데이터 퍼펙트',
     5: 'Band 데이터 퍼펙트S',

@@ -61,7 +61,7 @@ var make_user_table = function(data, callback) {
         }
 
         var template = [
-            '<tr user-code="' + phone_number + '">',
+            '<tr class="user_tr" user-name="' + name + '" user-code="' + phone_number + '">',
                 '<td class="checkbox_td">' + '<input class="user_checkbox" type="checkbox" />' + '</td>',
                 '<td>' + name + '</td>',
                 '<td>' + phone_number + '</td>',
@@ -272,5 +272,26 @@ $('#remove_user').on('click', function(e) {
         alert.show('삭제할 고객을 체크해주세요.');
     } else {
         confirmation_remove_modal.modal('show');
+    }
+});
+
+$('#search_box').on('input', function() {
+    var $user_tr = $('.user_tr');
+    var token = $(this).val();
+    var reg_token = new RegExp(token);
+
+    if (token.length == 0) {
+        $user_tr.show();
+    } else {
+        $user_tr.each(function(i, e) {
+            var $this = $(e);
+            if (reg_token.test($this.attr('user-name'))) {
+                $this.show();
+            } else if (reg_token.test($this.attr('user-code'))) {
+                $this.show();
+            } else {
+                $this.hide();
+            }
+        });
     }
 });

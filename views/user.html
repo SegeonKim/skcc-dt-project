@@ -112,6 +112,10 @@
           </div>
           <div class="row">
               <button id="remove_user" class="btn btn-danger" style="float:right; margin-bottom:10px; margin-right:15px;">삭제하기</button>
+              <div class="input-group" style="float:right;width:300px;margin-right:15px;">
+                <span class="input-group-addon" style="background-color:#dedede;"><i class="fa fa-search"></i></span>
+                <input id="search_box" type="text" class="form-control" placeholder="Search">
+              </div>
           </div>
           <div class="second_box row">
             <div class="box box-primary">
@@ -119,12 +123,12 @@
                 <table id="user_table" class="table table-hover table-responsive table-striped">
                   <thead>
                     <tr class="table_head arrive_item_head">
-                      <th class="checkbox_td"><input id="checkall" type="checkbox" /></th>
-                      <th>고객 이름</th>
-                      <th>휴대폰 번호</th>
-                      <th>요금제</th>
-                      <th>기종</th>
-                      <th style="width:100px;"></th>
+                      <th style="width:7%;" class="checkbox_td"><input id="checkall" type="checkbox" /></th>
+                      <th style="width:15%;">고객 이름</th>
+                      <th style="width:20%;">휴대폰 번호</th>
+                      <th style="width:30%;">요금제</th>
+                      <th style="width:15%;">기종</th>
+                      <th style="width:12%;"></th>
                     </tr>
                   </thead>
                   <tbody>
