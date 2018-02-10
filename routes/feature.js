@@ -44,10 +44,10 @@ feature.recommand = function(req, callback) {
     };
     var calc_age = function(max, min) {
         if (!max) {
-            min = parseInt(min / 10 + 5, 10);
+            min = parseInt((min + 5) / 10 , 10);
             return min * 10;
         } else if (!min) {
-            max = parseInt(max / 10 + 5, 10);
+            max = parseInt((max + 5) / 10, 10);
             return max * 10;
         }
 
