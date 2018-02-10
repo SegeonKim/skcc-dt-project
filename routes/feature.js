@@ -53,7 +53,7 @@ feature.recommand = function(req, callback) {
 
         max = parseInt(max, 10);
         min = parseInt(min, 10);
-        var avg = parseInt(((max + min) / 2) / 10, 10);
+        var avg = parseInt(((max + min) / 2 + 5) / 10, 10);
         return avg * 10;
     };
     var data = req.body;
