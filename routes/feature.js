@@ -103,7 +103,7 @@ feature.recommand = function(req, callback) {
                 }
             }
             console.log("-------[VR] Result-------");
-            console.log("Age : " + (min ? min : "") + (max && min ? ' ~ ' : '') + (max ? max : ""));
+            console.log("Age : " + (min ? min + 5 : "") + (max && min ? ' ~ ' : '') + (max ? max + 5 : ""));
             console.log("Sex : ", sex);
 
             callback(res);
