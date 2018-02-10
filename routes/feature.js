@@ -71,6 +71,8 @@ feature.recommand = function(req, callback) {
             sex = sex == 'male' ? 'female' : 'male';
         }
 
+        var kor_sex = sex == 'male' ? '남자' : '여자';
+
         if (age > 50) age = 50;
 
         async.waterfall([
@@ -95,13 +97,13 @@ feature.recommand = function(req, callback) {
                 result: true,
                 data: {
                     age: age,
-                    sex: sex,
+                    sex: kor_sex,
                     phone: phone_res,
                     plan: plan_res
                 }
             }
             console.log("-------[VR] Result-------");
-            console.log("Age : " + (min ? min + " ~ " : "") + max);
+            console.log("Age : " + (min ? min : "") + (max && min ? ' ~ ' : '') + (max ? max : ""));
             console.log("Sex : ", sex);
 
             callback(res);
