@@ -204,32 +204,37 @@ feature.user.getleaving = function(req, callback) {
 feature.user.join = function(req, callback) {
     var res = {};
     var user_data = req.body;
-    var new_user = {
-        name: user_data.name,
-        age: user_data.age,
-        sex: user_data.sex,
-        phone_number: user_data.phone_number,
-        plan: user_data.plan,           // 요금제
-        phone: user_data.phone,          // 기종
-        remain: user_data.remain,         // 잔여 할부금
-        remain_month: user_data.remain_month,   // 잔여 할부 기간
-        id_number: user_data.id_number,      // 주민 번호
-        address: user_data.address,        // 주소
-        account: user_data.account,        // 계좌 번호
-        bank: user_data.bank,           // 계좌 은행
-        extra_service: user_data.extra_service,   // 부가 서비스
-        date: new Date()              // 가입 날짜
-    }
-    var new_db = new user_db(new_user);
-    new_db.save(function(err) {
-        if (err) {
-            console.log('Fail user join : ', err);
-            res.result = false;
-        } else {
-            console.log('Complete join!!');
-            res.result = true;
+
+    phone_db.findOne({
+        name: user_data.phone
+    }, function(err, data) {
+        var new_user = {
+            name: user_data.name,
+            age: user_data.age,
+            sex: user_data.sex,
+            phone_number: user_data.phone_number,
+            plan: user_data.plan,           // 요금제
+            phone: user_data.phone,          // 기종
+            remain: data.price,         // 잔여 할부금
+            remain_month: 24,   // 잔여 할부 기간
+            id_number: user_data.id_number,      // 주민 번호
+            address: user_data.address,        // 주소
+            account: user_data.account,        // 계좌 번호
+            bank: user_data.bank,           // 계좌 은행
+            extra_service: [user_data.extra_service],   // 부가 서비스
+            date: new Date()              // 가입 날짜
         }
-        callback(res);
+        var new_db = new user_db(new_user);
+        new_db.save(function(err) {
+            if (err) {
+                console.log('Fail user join : ', err);
+                res.result = false;
+            } else {
+                console.log('Complete join!!');
+                res.result = true;
+            }
+            callback(res);
+        });
     });
 };
 
