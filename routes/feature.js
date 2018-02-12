@@ -215,7 +215,7 @@ feature.user.join = function(req, callback) {
             phone_number: user_data.phone_number,
             plan: user_data.plan,           // 요금제
             phone: user_data.phone,          // 기종
-            remain: data.price,         // 잔여 할부금
+            remain: data.price.split(',')[0],         // 잔여 할부금
             remain_month: 24,   // 잔여 할부 기간
             id_number: user_data.id_number,      // 주민 번호
             address: user_data.address,        // 주소
